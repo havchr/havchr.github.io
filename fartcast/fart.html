@@ -35,6 +35,11 @@ limitations under the License.
   </head>
   <body>
 	<DIV id="message">Talk kink to me</DIV>
+
+<audio id ="audio" src="fart.mp3" >
+  Your browser does not support the <code>audio</code> element.
+</audio>
+
 	<button onclick="clickClack()">Click me</button>
     <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
     <script type="text/javascript">
@@ -46,8 +51,8 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new AudioContext();
 
 function clickClack(){
-	var snd = new Audio("fart.mp3"); // buffers automatically when created
-	snd.play();
+	
+	document.getElementById('audio').play();
 }
 
       window.onload = function() {
