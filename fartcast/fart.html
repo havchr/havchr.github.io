@@ -35,40 +35,22 @@ limitations under the License.
   </head>
   <body>
 	<DIV id="message">Talk pink to me</DIV>
+	<button onclick="clickClack()">Click me</button>
     <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
     <script type="text/javascript">
+
 
 var dogBarkingBuffer = null;
 // Fix up prefixing
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new AudioContext();
 
-function loadDogSound(url) {
-  var request = new XMLHttpRequest();
-  request.open('GET', url, true);
-  request.responseType = 'arraybuffer';
-
-  // Decode asynchronously
-  request.onload = function() {
-    context.decodeAudioData(request.response, function(buffer) {
-      dogBarkingBuffer = buffer;
-    }, onError);
-  }
-  request.send();
-}
-
-function playSound(buffer) {
-  var source = context.createBufferSource(); // creates a sound source
-  source.buffer = buffer;                    // tell the source which sound to play
-  source.connect(context.destination);       // connect the source to the context's destination (the speakers)
-  source.start(0);                           // play the source now
-                                             // note: on older systems, may have to use deprecated noteOn(time);
+function clickClack(){
+	var snd = new Audio("fart.mp3"); // buffers automatically when created
+	snd.play();
 }
 
       window.onload = function() {
-        
-
-loadDogSound("fart.mp3");
 
         cast.receiver.logger.setLevelValue(0);
         window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -119,7 +101,7 @@ loadDogSound("fart.mp3");
       
       // utility function to display the text message in the input field
       function displayText(text) {
-        playSound(dogBarkingBuffer);
+        clickClack();
         console.log(text);
         document.getElementById("message").innerHTML=text;
         window.castReceiverManager.setApplicationState(text);
