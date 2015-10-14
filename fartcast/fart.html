@@ -25,7 +25,7 @@ limitations under the License.
 	    display: table-cell;
 	    vertical-align:middle;
 	    color:#FFFFFF;
-	    background-color:#2020FF;
+	    background-color:#F0200F;
 	    font-weight:bold;
 	    font-family:Verdana, Geneva, sans-serif;
 	    font-size:40px;
@@ -34,7 +34,7 @@ limitations under the License.
     <title>Cast Hello Text</title>
   </head>
   <body>
-	<DIV id="message">Talk rink to me</DIV>
+	<DIV id="message">Talk brink to me</DIV>
 
 <audio id ="audio" src="https://havchr.github.io/fartcast/fart.mp3" >
   Your browser does not support the <code>audio</code> element.
@@ -51,9 +51,51 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new AudioContext();
 
 function clickClack(){
-	
-	document.getElementById('audio').play();
+	var audio1 = new WebAudio('fart.mp3');
+audio1.onload = function() {
+    audio1.play();
 }
+
+}
+
+
+function WebAudio(src) {
+    if(src) this.load(src);
+}
+
+WebAudio.prototype.audioContext = new AudioContext;
+
+WebAudio.prototype.load = function(src) {
+    if(src) this.src = src;
+    console.log('Loading audio ' + this.src);
+    var self = this;
+    var request = new XMLHttpRequest;
+    request.open("GET", this.src, true);
+    request.responseType = "arraybuffer";
+    request.onload = function() {
+        self.audioContext.decodeAudioData(request.response, function(buffer) {
+            if (!buffer) {
+                if(self.onerror) self.onerror();
+                return;
+            }
+
+            self.buffer = buffer;
+
+            if(self.onload)
+                self.onload(self);
+        }, function(error) {
+            self.onerror(error);
+        });
+    };
+    request.send();
+};
+
+WebAudio.prototype.play = function() {
+    var source = this.audioContext.createBufferSource();
+    source.buffer = this.buffer;
+    source.connect(this.audioContext.destination);
+    source.start(0);
+};
 
       window.onload = function() {
 
