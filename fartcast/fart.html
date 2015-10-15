@@ -17,30 +17,35 @@ limitations under the License.
 	  body {
 	    overflow:hidden;
 	  }
-      div{
-	    height:720PX;
+       div{
+	    height:120PX;
 	    width:1280PX;
 	    text-align:center;
 	    border:0px solid silver;
 	    display: table-cell;
 	    vertical-align:middle;
 	    color:#FFFFFF;
-	    background-color:#F0200F;
+	    background-color:rgba(128,0,128,0.5);
 	    font-weight:bold;
 	    font-family:Verdana, Geneva, sans-serif;
 	    font-size:40px;
 	}
+	
     </style>
     <title>Cast Hello Text</title>
   </head>
   <body>
-	<DIV id="message">Talk brink to me</DIV>
+  	<div id="container">
+<DIV id="message">Talk brink to me</DIV>
+  	</div>
+	
 
 <audio id ="audio" src="https://havchr.github.io/fartcast/fart.mp3" >
   Your browser does not support the <code>audio</code> element.
 </audio>
 
 	<button onclick="clickClack()">Click me</button>
+	<script src="starfield.js"></script>
     <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
     <script type="text/javascript">
 
@@ -98,6 +103,19 @@ WebAudio.prototype.play = function() {
 };
 
       window.onload = function() {
+
+var container = document.getElementById('container');
+var starfield = new Starfield();
+starfield.initialise(container);
+starfield.start();
+
+function randomise() {
+			starfield.stop();
+			starfield.stars = Math.random()*1000 + 50;
+			starfield.minVelocity = Math.random()*30+5;
+			starfield.maxVelocity = Math.random()*50 + starfield.minVelocity;			
+			starfield.start();
+		}
 
         cast.receiver.logger.setLevelValue(0);
         window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
