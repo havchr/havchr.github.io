@@ -78,6 +78,13 @@ audio1.onload = function() {
 
 }
 
+function starWars() {
+    var audio1 = new WebAudio('starwars.mp3');
+    audio1.onload = function () {
+        audio1.play();
+    }
+}
+
 
 function WebAudio(src) {
     if(src) this.load(src);
@@ -168,7 +175,12 @@ WebAudio.prototype.play = function() {
       
       // utility function to display the text message in the input field
       function displayText(text) {
-        clickClack();
+          if (text === "starwars" ) {
+              starWars();
+          } else {
+              clickClack();
+          }
+
         console.log(text);
         document.getElementById("message").innerHTML=text;
         window.castReceiverManager.setApplicationState(text);
