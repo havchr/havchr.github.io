@@ -25,7 +25,7 @@ limitations under the License.
 	    display: table-cell;
 	    vertical-align:middle;
 	    color:#FFFFFF;
-	    background-color:rgba(128,0,128,0.5);
+	    background-color:rgba(128,128,0,0.5);
 	    font-weight:bold;
 	    font-family:Verdana, Geneva, sans-serif;
 	    font-size:40px;
@@ -76,6 +76,13 @@ audio1.onload = function() {
     audio1.play();
 }
 
+}
+
+function starWars() {
+    var audio1 = new WebAudio('starwars.mp3');
+    audio1.onload = function () {
+        audio1.play();
+    }
 }
 
 
@@ -168,7 +175,12 @@ WebAudio.prototype.play = function() {
       
       // utility function to display the text message in the input field
       function displayText(text) {
-        clickClack();
+          if (text === "Star Wars" ) {
+              starWars();
+          } else {
+              clickClack();
+          }
+
         console.log(text);
         document.getElementById("message").innerHTML=text;
         window.castReceiverManager.setApplicationState(text);
