@@ -35,6 +35,14 @@
 $('#raveSpotPicker').locationpicker();
 </script>
 
+<div id="somecomponent" style="width: 500px; height: 400px;"></div>
+<script>
+$('#somecomponent').locationpicker({
+  location: {latitude: 46.15242437752303, longitude: 2.7470703125},
+  radius: 300
+  });
+</script>
+
     <div style="display:none" class="error">
       Looks like there was a problem saving the test object. Make sure you've set your application ID and javascript key correctly in the call to <code>Parse.initialize</code> in this file.
     </div>
